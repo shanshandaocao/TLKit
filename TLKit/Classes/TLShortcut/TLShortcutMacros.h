@@ -9,7 +9,8 @@
 #ifndef TLShortcutMacros_h
 #define TLShortcutMacros_h
 
-#define     IS_IPHONEX              (([UIScreen mainScreen].bounds.size.width == 375.0f && [UIScreen mainScreen].bounds.size.height == 812.0f) || ([UIScreen mainScreen].bounds.size.width == 414.0f && [UIScreen mainScreen].bounds.size.height == 896.0f))
+//#define     IS_IPHONEX              (([UIScreen mainScreen].bounds.size.width == 375.0f && [UIScreen mainScreen].bounds.size.height == 812.0f) || ([UIScreen mainScreen].bounds.size.width == 414.0f && [UIScreen mainScreen].bounds.size.height == 896.0f))
+#define IS_IPHONEX ((STATUSBAR_HEIGHT >= 44.0) ? YES : NO)
 
 #pragma mark - # 屏幕尺寸
 #define     SCREEN_SIZE                 [UIScreen mainScreen].bounds.size
@@ -17,8 +18,18 @@
 #define     SCREEN_HEIGHT               SCREEN_SIZE.height
 
 #pragma mark - # 常用控件高度
-#define     STATUSBAR_HEIGHT            (IS_IPHONEX ? 44.0f : 20.0f)
-#define     TABBAR_HEIGHT               (IS_IPHONEX ? 49.0f + 34.0f : 49.0f)
+//状态栏
+#define STATUSBAR_HEIGHT \
+^(){\
+if (@available(iOS 13.0, *)) {\
+    UIStatusBarManager *statusBarManager = [UIApplication sharedApplication].windows.firstObject.windowScene.statusBarManager;\
+    return statusBarManager.statusBarFrame.size.height;\
+} else {\
+    return [UIApplication sharedApplication].statusBarFrame.size.height;\
+}\
+}()
+
+#define     TABBAR_HEIGHT               (IS_IPHONEX ? (49.0f + 34.0f) : 49.0f)
 #define     NAVBAR_HEIGHT               44.0f
 #define     SEARCHBAR_HEIGHT            (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"11.0") ? 52.0f : 44.0f)
 #define     BORDER_WIDTH_1PX            ([[UIScreen mainScreen] scale] > 0.0 ? 1.0 / [[UIScreen mainScreen] scale] : 1.0)
@@ -53,7 +64,7 @@
 /// URL
 #define     TLURL(urlString)            [NSURL URLWithString:urlString]
 /// 图片
-#define     TLImage(imageName)          (imageName ? [UIImage imageNamed:imageName] : nil)
+#define     TLImage(imageName)          [UIImage imageNamed:imageName]
 #define     TLPNG(X)                    [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:X ofType:@"png"]]
 #define     TLJPG(X)                    [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:X ofType:@"jpg"]]
 /// 字符串
@@ -68,6 +79,19 @@
 
 /// 国际化
 #define     LOCSTR(str)                 NSLocalizedString(str, nil)
+
+//NavBar高度
+#define     TopHeight   ([UIApplication sharedApplication].statusBarFrame.size.height + 44)
+
+
+//#warning 当前版本信息, 每次更新修改
+#define currentVersionNum    100
+
+
+
+//性别设置对照，后面需要再次确认
+#define GenderManType @"1"
+#define GenderWomanType @"0"
 
 
 #pragma mark - # 快捷方法

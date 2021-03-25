@@ -103,25 +103,25 @@
 /// YYYY年MM月dd日
 - (NSString *)formatYMD
 {
-    return [NSString stringWithFormat:@"%lu年%02lu月%02lu日", (unsigned long)self.year, (unsigned long)self.month, (unsigned long)self.day];
+    return [NSString stringWithFormat:@"%lu年%lu月%lu日", (unsigned long)self.year, (unsigned long)self.month, (unsigned long)self.day];
 }
 
 /// 自定义分隔符
 - (NSString *)formatYMDWithSeparate:(NSString *)separate
 {
-    return [NSString stringWithFormat:@"%lu%@%02lu%@%02lu", (unsigned long)self.year, separate, (unsigned long)self.month, separate, (unsigned long)self.day];
+    return [NSString stringWithFormat:@"%lu%@%lu%@%lu", (unsigned long)self.year, separate, (unsigned long)self.month, separate, (unsigned long)self.day];
 }
 
 /// MM月dd日
 - (NSString *)formatMD
 {
-    return [NSString stringWithFormat:@"%02lu月%02lu日", (unsigned long)self.month, (unsigned long)self.day];
+    return [NSString stringWithFormat:@"%lu月%lu日", (unsigned long)self.month, (unsigned long)self.day];
 }
 
 /// 自定义分隔符
 - (NSString *)formatMDWithSeparate:(NSString *)separate
 {
-    return [NSString stringWithFormat:@"%02lu%@%02lu", (unsigned long)self.month, separate, (unsigned long)self.day];
+    return [NSString stringWithFormat:@"%lu%@%lu", (unsigned long)self.month, separate, (unsigned long)self.day];
 }
 
 /// HH:MM:SS
